@@ -1,3 +1,12 @@
+body {
+  font-family: sans-serif, Arial;
+  background-image: url(assets/blur.png);
+  background-size: cover;                    
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
+}
+
 .board {
   height: 600px;
   width: 400px;
