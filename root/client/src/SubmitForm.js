@@ -1,8 +1,9 @@
-const SubmitForm = ({ difficulty, id }) => {
+const SubmitForm = ({ id, score }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = { }
+        const data = { id };
+
         fetch('/api', {
             method:'POST',
             headers: {"Content-Type": "application/json"},
