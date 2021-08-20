@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { useState } from 'react';
 import Form from './Form';
-import Score from './Score';
+import Score from './FinalScore';
 import Game from './Game';
 import SubmitForm from './SubmitForm';
 import './index.css';
@@ -10,12 +10,13 @@ import CurrentScore from './CurrentScore';
 function App() {
 
   const [Difficulty, setDifficulty] = useState();
+  const [Score, setScore] = useState(0);
   const [ID, setID] = useState();
 
   return (
     <Router>
       <div className="app">
-        <CurrentScore />
+        <CurrentScore setScore={setScore} score={Score}/>
         <div className="game">
         <Switch>
           <Route exact path='/'>

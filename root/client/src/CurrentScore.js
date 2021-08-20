@@ -1,14 +1,14 @@
 
 import { useState } from 'react';
 
-const CurrentScore = () => {
-    const [Score, setScore] = useState(0);
+const CurrentScore = ({setScore, score}) => {
+    // const [Score, setScore] = useState(0);
     const handleClick = () => {
-        setScore(Score+1);
+        setScore(score+1);
     }
     return (
-        <div>
-            <h2>Score: {Score}</h2>
+        <div className='score'>
+            <h2>Score: {score}</h2>
             <button onClick={handleClick}>Increase Score</button>
         </div> 
         
