@@ -38,7 +38,7 @@ p{
 }
 
 
-.welcome, .score {
+.welcome {
     text-align: center;
     color: #355070;
     position: fixed;
