@@ -33,22 +33,7 @@ app.post('/api/scores', (req, res) => {
     const score = new Score({
         username: req.body["username"],
         score: req.body["score"]
-    })
-    score.save()
-        .then((result) => {
-            res.send(result)
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-});
-
-app.get('/api/scores', (req, res) => {
-    console.log('score request');
-    const score = new Score({
-        username: 'jjj',
-        score: 123
-    })
+    });
 
     score.save()
         .then((result) => {
@@ -57,6 +42,16 @@ app.get('/api/scores', (req, res) => {
         .catch((err) => {
             console.log(err);
         });
-        
 
+});
+
+app.get('/api/scores', (req, res) => {
+    console.log('score request');
+    Score.find({}).sort({score: "desc"}).limit(10)
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 });

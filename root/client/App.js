@@ -5,7 +5,7 @@ var levelCount = 1; //keeps track of which level the game is currently on
 var score = 0; //player's score
 var iconArray = []; //stores all the icons on the board
 var groups = []; //stores the rows/columns of groups of four or more
-var name; //stores the player's 3 letter username
+var username; //stores the player's 3 letter username
 var addColor; //keeps track of what level a color should be added at (varies depending on difficulty)
 var dropping; //stores setInterval object when the board is dropping elements
 var filling; //stores setInterval object when the board is being filled
@@ -21,7 +21,7 @@ function icon(color, checked, element){
  * builds the board and then populates it with icons
  */
 function buildLevel() { 
-    name = document.getElementById("name").value;
+    username = document.getElementById("name").value;
     const diffs = document.querySelectorAll('input[name="diff"]');
 
     //finds which difficulty level was selected
@@ -293,14 +293,14 @@ function fillWhite(){
         //checks if there are any groups of four left, if not, the game is over and the prompt for the user's score pops up
         if(checkFinish() == true){
             clearInterval(filling);
-            document.getElementById("score").style.display = 'block';
-            document.getElementById("insertscore").innerHTML = 'Score: ' + score;
-            document.querySelector(".board").style.animation = 'fadeout2 3s forwards';
-            document.getElementById("level").style.animation = 'fadeout2 3s forwards';
-            document.getElementById("scoretext").style.animation = 'fadeout2 3s forwards';
-            document.getElementById("scoretextform").value = score;
-            document.getElementById("nameform").value = name; 
-            const data = {username: name, score: score};
+            // document.getElementById("score").style.display = 'block';
+            // document.getElementById("insertscore").innerHTML = 'Score: ' + score;
+            // document.querySelector(".board").style.animation = 'fadeout2 3s forwards';
+            // document.getElementById("level").style.animation = 'fadeout2 3s forwards';
+            // document.getElementById("scoretext").style.animation = 'fadeout2 3s forwards';
+            // document.getElementById("scoretextform").value = score;
+            // document.getElementById("nameform").value = username; 
+            const data = {username: username, score: score};
             fetch('http://localhost:3000/api/scores', {
                         method: "POST",
                         body: JSON.stringify(data),
@@ -310,11 +310,18 @@ function fillWhite(){
                     })
                         .then(response => response.json())
                         .then(json => console.log(json));
+            fetch('http://localhost:3000/api/scores')
+                .then(response => response.json())
+                .then(json => console.log(json));
 
         } else{
             clearInterval(filling);
         }
     } 
+}
+
+function createTable(data){
+    var table = document.createElement("table");
 }
 
 
