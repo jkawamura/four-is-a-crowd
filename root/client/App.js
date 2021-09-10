@@ -16,7 +16,9 @@ function icon(color, checked, element){
     this.checked = checked;
     this.element = element;
 }
-
+fetch('http://localhost:3000/api/scores')
+                .then(response => response.json())
+                .then(data => createTable(data));
 /**
  * builds the board and then populates it with icons
  */
@@ -89,6 +91,7 @@ function buildLevel() {
             iconArray[i][j] = iconTemp;
             board.appendChild(element);
         }
+        
     }
    
 }
@@ -211,6 +214,8 @@ function remove(){
     groups = []; 
 }
 
+
+
 /**
  * performs the drop effect on icons and then checks if anything needs to be dropped down. 
  */
@@ -300,19 +305,20 @@ function fillWhite(){
             // document.getElementById("scoretext").style.animation = 'fadeout2 3s forwards';
             // document.getElementById("scoretextform").value = score;
             // document.getElementById("nameform").value = username; 
-            const data = {username: username, score: score};
+            const playerData = {username: username, score: score};
             fetch('http://localhost:3000/api/scores', {
                         method: "POST",
-                        body: JSON.stringify(data),
+                        body: JSON.stringify(playerData),
                         headers: {
                             "Content-type": "application/json"
                         }
                     })
                         .then(response => response.json())
                         .then(json => console.log(json));
+            
             fetch('http://localhost:3000/api/scores')
                 .then(response => response.json())
-                .then(json => console.log(json));
+                .then(data => createTable(data, playerData));
 
         } else{
             clearInterval(filling);
@@ -320,8 +326,45 @@ function fillWhite(){
     } 
 }
 
-function createTable(data){
-    var table = document.createElement("table");
+function createTable(data, player){
+    var table = document.createElement('table');
+    let row = table.insertRow(0);
+
+    let theader1 = document.createElement('th');
+    theader1.innerHTML = 'Rank';
+    row.appendChild(theader1);
+
+    let theader2 = document.createElement('th');
+    theader2.innerHTML = 'Score';
+    row.appendChild(theader2);
+
+    let theader3 = document.createElement('th');
+    theader3.innerHTML = 'Name';
+    row.appendChild(theader3);
+
+    for (var i = 0; i < 10; i++){
+        let tr = table.insertRow(i+1);
+        let cell1 = tr.insertCell(0)
+        cell1.innerHTML = i+1;
+        let cell2 = tr.insertCell(1)
+        cell2.innerHTML = data[i].score;
+        let cell3 = tr.insertCell(2)
+        cell3.innerHTML = data[i].username;
+
+    }
+    for(var i = 10; i < data.length(); i++){
+        if(data[i].score == player.score || data[i].username == player.username){
+            let tr = table.insertRow(11);
+            let cell1 = tr.insertCell(0)
+            cell1.innerHTML = i+1;
+            let cell2 = tr.insertCell(1)
+            cell2.innerHTML = data[i].score;
+            let cell3 = tr.insertCell(2)
+            cell3.innerHTML = data[i].username;
+        }
+    }
+
+    document.querySelector(".test").appendChild(table);
 }
 
 

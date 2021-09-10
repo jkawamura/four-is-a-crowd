@@ -47,9 +47,9 @@ app.post('/api/scores', (req, res) => {
 
 app.get('/api/scores', (req, res) => {
     console.log('score request');
-    Score.find({}).sort({score: "desc"}).limit(10)
+    Score.find({}).sort({score: "desc"})
         .then((result) => {
-            res.send(result)
+            res.send(result);
         })
         .catch((err) => {
             console.log(err);
