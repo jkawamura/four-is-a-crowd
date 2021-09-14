@@ -16,9 +16,6 @@ function icon(color, checked, element){
     this.checked = checked;
     this.element = element;
 }
-fetch('http://localhost:3000/api/scores')
-                .then(response => response.json())
-                .then(data => createTable(data));
 /**
  * builds the board and then populates it with icons
  */
@@ -352,8 +349,8 @@ function createTable(data, player){
         cell3.innerHTML = data[i].username;
 
     }
-    for(var i = 10; i < data.length(); i++){
-        if(data[i].score == player.score || data[i].username == player.username){
+    for(var i = 0; i < data.length; i++){
+        if(data[i].score == player.score && data[i].username == player.username){
             let tr = table.insertRow(11);
             let cell1 = tr.insertCell(0)
             cell1.innerHTML = i+1;
@@ -364,7 +361,7 @@ function createTable(data, player){
         }
     }
 
-    document.querySelector(".test").appendChild(table);
+    document.querySelector(".score").appendChild(table);
 }
 
 
